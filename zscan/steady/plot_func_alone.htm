@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head><title>Canvas code example teste</title>
+
+<link rel="stylesheet" href="style_config.css" title="external style sheet">
+
+<!-- JavaScript source code goes here-->
+<!-- <script src="dados_func.js"></script> -->
+<script src="dat.gui.min.js"></script>
+
+<!--<canvas id="canvas" width="502" height="108"></canvas>-->
+<!--<canvas id="canvas" width="1004" height="216" ></canvas>-->
+<canvas id="canvas" width="960" height="400" ></canvas>
+  <script type="text/javascript">
+    var props = {
+        message: 'Z-Scan curves',
+        type: 'Thermal lens',
+        phi: 0.15,
+        theta: 0.1,
+        beta: -0.05,
+        message2: 'Y-scale is x50'
+    };
+
+    var gui = new dat.GUI();
+
+    gui.add(props, 'message').name('Plot of');
+    gui.add(props, 'message2').name('Alert:');
+    var control1 = gui.add(props, 'type', [ 'Thermal lens', 'Sheik-Bahae' ] ).name('Fit');
+    var control2 = gui.add(props, 'theta').min(-0.2).max(0.2).step(0.01).name('Theta');
+    var control = gui.add(props, 'phi').min(-0.3).max(0.3).step(0.01).name('Delta phi_0');
+    var control3 = gui.add(props, 'beta').min(-0.1).max(0.1).step(0.01).listen().name('Beta');
+  </script>
+  <script type="text/javascript" onChange="update();">
+   control.onChange(draw);
+   control1.onChange(draw);
+   control2.onChange(draw);
+   control3.onChange(draw);
+
+// Vamos subtrair 1.0 a todas as funcoes para que elas estejam centradas em y = 0
+function fun1(x) {phi = props.phi; return 1.0-4.0*phi*x/((x**2 + 9.0)*(x**2 + 1.0))-1.0;}
+//function fun2(x) {return Math.cos(3*x);}
+function fun2(x) {theta = props.theta; return 1.0-(0.5*theta*Math.atan(2.0*x/(3.0 + x**2)))-1.0;}
+function fun3(x) {beta = props.beta; return 1.0-(beta/(1.0 + x**2))-1.0};
+
+function draw() {
+ var canvas = document.getElementById("canvas");
+ if (null==canvas || !canvas.getContext) return;
+
+ var axes={}, ctx=canvas.getContext("2d");
+ ctx.clearRect(0, 0, canvas.width, canvas.height);
+ axes.x0 = .5 + .5*canvas.width;  // x0 pixels from left to x=0
+ axes.y0 = .5 + .5*canvas.height; // y0 pixels from top to y=0
+// axes.scale = 40;                 // 40 pixels from x=0 to x=1
+ axes.scale = 40;
+ axes.doNegativeX = true;
+
+ showAxes(ctx,axes);
+// funGraph(ctx,axes,fun1,"rgb(11,153,11)",1); 
+ type = props.type;
+ if (type == 'Thermal lens') funGraph(ctx,axes,fun2,"rgb(66,44,255)",2);
+ else {funGraph(ctx,axes,fun1,"rgb(66,44,255)",2); funGraph(ctx,axes,fun3,"rgb(11,153,11)",2);}
+}
+
+function funGraph (ctx,axes,func,color,thick) {
+ var xx, yy, dx=0.1, x0=axes.x0, y0=axes.y0, scale=axes.scale;
+ var iMax = Math.round((ctx.canvas.width-x0)/dx);
+ var iMin = axes.doNegativeX ? Math.round(-x0/dx) : 0;
+ ctx.beginPath();
+ ctx.lineWidth = thick;
+ ctx.strokeStyle = color;
+
+ for (var i=iMin;i<=iMax;i++) {
+  xx = dx*i; yy = scale*func(xx/scale);
+//Multiplicar a escala em y somente:
+  yy = 50.0*yy;
+  if (i==iMin) ctx.moveTo(x0+xx,y0-yy);
+  else         ctx.lineTo(x0+xx,y0-yy);
+ }
+ ctx.stroke();
+}
+
+function showAxes(ctx,axes) {
+ var x0=axes.x0, w=ctx.canvas.width;
+ var y0=axes.y0, h=ctx.canvas.height;
+ var xmin = axes.doNegativeX ? 0 : x0;
+ ctx.beginPath();
+ ctx.strokeStyle = "rgb(128,128,128)"; 
+ ctx.moveTo(xmin,y0); ctx.lineTo(w,y0);  // X axis
+ ctx.moveTo(x0,0);    ctx.lineTo(x0,h);  // Y axis
+ ctx.stroke();
+}
+  </script>
+
+</head>
+<!-- <body onload="draw()" background="http://wisetoast.com/wp-content/uploads/2016/08/Courteney-Cox-Net-Worth-1.jpg"> -->
+<body onload="draw()">
+</body>
+
+</html>
