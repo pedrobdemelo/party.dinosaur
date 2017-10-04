@@ -44,6 +44,16 @@ h2 span {
 h2 span.spacer {
    padding:0 5px;
 }
+
+img.transparent {
+   opacity: 1;
+   -webkit-transition: opacity 1s;
+   -moz-transition: opacity 1s;
+   transition: opacity 1s;
+}
+img.transparent:hover {
+   opacity: 0.5;
+}
 </style>
 
 <script>
@@ -61,7 +71,7 @@ h2 span.spacer {
 
 <div class="image">
  <a href="https://pedrobdemelo.github.io/party.dinosaur/zscan/steady/plot_func_alone.htm">
-<img src="https://pedrobdemelo.github.io/party.dinosaur/IMG_2516.JPG" width="400px" alt=""></a>
+<img class="transparent" src="https://pedrobdemelo.github.io/party.dinosaur/IMG_2516.JPG" width="400px" alt=""></a>
 <h2><span class='spacer'>Z-scan steady state regime</span></h2>
 </div>
 
@@ -71,7 +81,7 @@ h2 span.spacer {
 
 <div class="image">
  <a href="https://pedrobdemelo.github.io/party.dinosaur/zscan/transient/plot_func_alone.htm">
- <img src="https://pedrobdemelo.github.io/party.dinosaur/IMG_2521.JPG" width="400px" alt=""></a>
+ <img class="transparent" src="https://pedrobdemelo.github.io/party.dinosaur/IMG_2521.JPG" width="400px" alt=""></a>
 <h2><span class='spacer'>Z-scan transient intensities</span></h2>
 </div>
 <!--
