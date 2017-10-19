@@ -27,9 +27,11 @@ body {
         message2: 'z = sqrt(3)z_c',
         theta: 0.1,
         tau_c: 2.5,
-//        type: 'Thermal lens',
+//        type: 'Thermal lens',  
         z_z_c: Math.sqrt(3.0),
-        optimize_z: function(){ props.z_z_c = Math.sqrt(3); draw();}
+        optimize_z: function(){ props.z_z_c = Math.sqrt(3); draw();},
+        freq: 5.0,
+        chopper: 'ON'
     };
 
     var gui = new dat.GUI();
@@ -40,6 +42,8 @@ body {
     var control3 = gui.add(props, 'z_z_c').min(-5.0).max(5.0).step(0.1).listen().name('z/z_c');
     var control2 = gui.add(props, 'theta').min(-0.2).max(0.2).step(0.01).listen().name('Theta');
     var control4 = gui.add(props, 'tau_c').min(0.1).max(5.0).step(0.1).listen().name('Tau_c');
+    var control6 = gui.add(props, 'freq').min(2.0).max(20.0).step(0.1).listen().name('f');
+    var control7 = gui.add(props, 'chopper', [ 'ON', 'OFF' ]).name('Chopper: ');
 //    var control1 = gui.add(props, 'type', [ 'Thermal lens', 'Sheik-Bahae' ] );
 
   </script>
@@ -51,18 +55,31 @@ body {
    control3.onChange(draw);
    control4.onChange(draw);
    control5.onChange(draw);
+   control6.onChange(draw);
+   control7.onChange(draw);
 
 // function fun1(x) {z_z_c = props.z_z_c; return Math.sin(z_z_c*x) + 0.2*x;  }
-function fun2(x) {theta = props.theta; tau_c = props.tau_c; z_z_c = props.z_z_c;
+function fun2(x) {theta = props.theta; tau_c = props.tau_c; z_z_c = props.z_z_c; freq = props.freq;
 
-if(x>0 && x<5.0)
-return 1.0-50.0*(0.5*theta*Math.atan(2.0*(z_z_c)/((3.0 + (z_z_c)**2) + (9.0 + (z_z_c)**2)*(x/tau_c))));
-else if(x>-10.0 && x<-5.0)
-return 1.0-50.0*(0.5*theta*Math.atan(2.0*(z_z_c)/((3.0 + (z_z_c)**2) + (9.0 + (z_z_c)**2)*((x+10.0)/tau_c))));
-else if(x>10.0 && x<15.0)
-return 1.0-50.0*(0.5*theta*Math.atan(2.0*(z_z_c)/((3.0 + (z_z_c)**2) + (9.0 + (z_z_c)**2)*((x-10.0)/tau_c))));
+//return 1.0-50.0*(0.5*theta*Math.atan(2.0*(z_z_c)/((3.0 + (z_z_c)**2) + (9.0 + (z_z_c)**2)*(x/tau_c))));}
+
+if(x>0 && x<freq)
+return 1.0-50.0*(0.5*theta*Math.atan(2.0*(z_z_c)/((3.0 + (z_z_c)**2) + (9.0 + (z_z_c)**2)*(0.5*tau_c/x))));
+else if(x>-2.0*freq && x<-freq)
+return 1.0-50.0*(0.5*theta*Math.atan(2.0*(z_z_c)/((3.0 + (z_z_c)**2) + (9.0 + (z_z_c)**2)*(0.5*tau_c/(x+2.0*freq)))));
+else if(x>2.0*freq && x<3.0*freq)
+return 1.0-50.0*(0.5*theta*Math.atan(2.0*(z_z_c)/((3.0 + (z_z_c)**2) + (9.0 + (z_z_c)**2)*(0.5*tau_c/(x-2.0*freq)))));
+else if(x>-4.0*freq && x<-3.0*freq)
+return 1.0-50.0*(0.5*theta*Math.atan(2.0*(z_z_c)/((3.0 + (z_z_c)**2) + (9.0 + (z_z_c)**2)*(0.5*tau_c/(x+4.0*freq)))));
+else if(x>4.0*freq && x<5.0*freq)
+return 1.0-50.0*(0.5*theta*Math.atan(2.0*(z_z_c)/((3.0 + (z_z_c)**2) + (9.0 + (z_z_c)**2)*(0.5*tau_c/(x-4.0*freq)))));
+else if(x>-6.0*freq && x<-5.0*freq)
+return 1.0-50.0*(0.5*theta*Math.atan(2.0*(z_z_c)/((3.0 + (z_z_c)**2) + (9.0 + (z_z_c)**2)*(0.5*tau_c/(x+6.0*freq)))));
+
 else
 return -5.0;}
+
+function fun3(x) {z_z_c = props.z_z_c; return 1.0-50.0*(0.5*theta*Math.atan(2.0*(z_z_c)/((3.0 + (z_z_c)**2))));; }
 
 function draw() {
  var canvas = document.getElementById("canvas");
@@ -77,7 +94,14 @@ function draw() {
 
  showAxes(ctx,axes);
 // funGraph(ctx,axes,fun1,"rgb(11,153,11)",1); 
- funGraph(ctx,axes,fun2,"rgb(66,44,255)",2);
+chopper = props.chopper;
+ if(chopper == 'ON')
+   {
+       funGraph(ctx,axes,fun2,"rgb(66,44,255)",2);
+   } else
+   {
+       funGraph(ctx,axes,fun3,"rgb(66,44,255)",2);
+   }
 // funGraph(ctx,axes,fun3,"rgb(11,153,11)",2);
 }
 
