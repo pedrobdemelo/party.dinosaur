@@ -42,7 +42,7 @@ body {
     var control3 = gui.add(props, 'z_z_c').min(-5.0).max(5.0).step(0.1).listen().name('z/z_c');
     var control2 = gui.add(props, 'theta').min(-0.2).max(0.2).step(0.01).listen().name('Theta');
     var control4 = gui.add(props, 'tau_c').min(0.1).max(5.0).step(0.1).listen().name('Tau_c');
-    var control6 = gui.add(props, 'freq').min(2.0).max(20.0).step(0.1).listen().name('f');
+    var control6 = gui.add(props, 'freq').min(2.0).max(12.0).step(0.1).listen().name('f');
     var control7 = gui.add(props, 'chopper', [ 'ON', 'OFF' ]).name('Chopper: ');
 //    var control1 = gui.add(props, 'type', [ 'Thermal lens', 'Sheik-Bahae' ] );
 
@@ -127,6 +127,7 @@ function showAxes(ctx,axes) {
  var y0=axes.y0, h=ctx.canvas.height;
  var xmin = axes.doNegativeX ? 0 : x0;
  ctx.beginPath();
+ ctx.lineWidth = 1;
  ctx.strokeStyle = "rgb(128,128,128)"; 
  ctx.moveTo(xmin,y0); ctx.lineTo(w,y0);  // X axis
  ctx.moveTo(x0,0);    ctx.lineTo(x0,h);  // Y axis
