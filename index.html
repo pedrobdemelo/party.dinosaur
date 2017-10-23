@@ -79,6 +79,24 @@ img.transparent:hover {
    opacity: 0.5;
 }
 </style>
+<!-- Parte do header: -->
+<script src="header_footer_etc/jquery-1.10.2.js"></script>
+<script> 
+$(function(){
+  $("#header").load("header_footer_etc/header.html"); 
+  $("#footer").load("header_footer_etc/footer.html");
+});
+</script>
+
+<style>
+div.topheader{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.pushdown{margin-bottom: 50px;}
+</style>
 
 <script>
 
@@ -87,7 +105,11 @@ img.transparent:hover {
 </head>
 
 <body>
+<!-- Header no body: -->
+<div id="header" class="topheader"></div>
+<div class="pushdown"></div>
 
+<!-- Pagina normal -->
 <div class="roboto">Interactive schemes</div>
 <br>
 
