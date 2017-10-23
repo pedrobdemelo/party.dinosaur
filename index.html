@@ -43,6 +43,7 @@ a.button {
    width: 100%; /* for IE 6 */
    max-width: 400px;
    float:left;
+   z-index:-1
 }
 
 h2 { 
@@ -80,10 +81,11 @@ img.transparent:hover {
 }
 </style>
 <!-- Parte do header: -->
-<script src="header_footer_etc/jquery-1.10.2.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script> 
 $(function(){
-  $("#header").load("header_footer_etc/header.html"); 
+//  $("#header").load("header_footer_etc/header.html");
+  $("#header").load("https://pedrobdemelo.github.io/party.dinosaur/header_footer_etc/header.html");
   $("#footer").load("header_footer_etc/footer.html");
 });
 </script>
@@ -96,6 +98,9 @@ div.topheader{
   right: 0;
 }
 .pushdown{margin-bottom: 50px;}
+/* Remove the ugly dotted lines around links from Firefox */
+:focus {outline:none;}
+::-moz-focus-inner {border:0;}
 </style>
 
 <script>
