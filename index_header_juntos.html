@@ -81,14 +81,6 @@ img.transparent:hover {
 }
 </style>
 <!-- Parte do header: -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script> 
-$(function(){
-//  $("#header").load("header_footer_etc/header.html");
-  $("#header").load("https://pedrobdemelo.github.io/party.dinosaur/header_footer_etc/header.html");
-  $("#footer").load("header_footer_etc/footer.html");
-});
-</script>
 
 <style>
 div.topheader{
@@ -103,31 +95,117 @@ div.topheader{
 ::-moz-focus-inner {border:0;}
 </style>
 
+<!-- Vamos mudar a cor desta div ao alterar o item do menu -->
 <style>
+div.svgfigmenu{
+/   background-color: lightblue;
+}
+</style>
 
+<style>
+/* Style the tab buttons */
+.tablink {
+    background-color: #555;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+/*    width: 24%;*/
+    width: 75%;
+}
+
+/* Change background color of buttons on hover */
+.tablink:hover {
+    background-color: #777;
+}
+
+.tablink2 {
+    background-color: #555;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 25%;
+}
+.tablink2:hover {
+    background-color: #777;
+}
+
+/* Set default styles for tab content */
+.tabcontent {
+    color: white;
+    display: none;
+    padding: 1px;
+    text-align: center;
+}
+
+/* Style each tab content individually */
+#H {background-color:DodgerBlue;}
+#InteractiveSchemes {background-color:orange;}
+#London {background-color:red;}
+#Paris {background-color:green;}
+#Tokyo {background-color:DodgerBlue;}
+#Oslo {background-color:orange;}
 </style>
 
 <script>
-function getColor(color) {
-    svgfigmenu.style.backgroundColor = color;
+function openCity(cityName, elmnt, color) {
+    // Hide all elements with class="tabcontent" by default */
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Remove the background color of all tablinks/buttons
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].style.backgroundColor = "";
+    }
+
+    tablinks = document.getElementsByClassName("tablink2");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].style.backgroundColor = "";
+    }
+
+    // Show the specific tab content
+    document.getElementById(cityName).style.display = "block";
+
+    // Add the specific color to the button used to open the tab content
+    elmnt.style.backgroundColor = color;
+    var svg;
+    svg = document.getElementById("svgfigmenu");
+    document.body.style.backgroundColor = color;
 }
 
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
 </script>
 
-<!-- Vamos mudar a cor desta div ao alterar o item do menu -->
-<style>
-div.svgfigmenu{
-   background-color: lightblue;
-}
-</style>
 
 </head>
 
 <body  style='margin-top:0;margin-left:150px;margin-right:0;'>
 <!-- Header no body: -->
-<div id="header" class="topheader"></div>
+<div class="topheader">
+<div id="H" class="tabcontent">
+<!--  <h3>H</h3>
+  <p>Home.</p>-->
+</div>
+
+<div id="InteractiveSchemes" class="tabcontent">
+<!--  <h3>IS</h3>-->
+</div>
+
+<button class="tablink2" onclick="openCity('H', this, 'DodgerBlue');">Home</button>
+<button class="tablink" onclick="openCity('InteractiveSchemes', this, 'orange');" id="defaultOpen">Interactive Schemes</button>
+</div>
 <div class="pushdown"></div>
 
 <!-- Pagina normal -->
