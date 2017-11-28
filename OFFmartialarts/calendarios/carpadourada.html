@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8' />
+<link href='../fullcalendar.min.css' rel='stylesheet' />
+<link href='../fullcalendar.print.min.css' rel='stylesheet' media='print' />
+<script src='../lib/moment.min.js'></script>
+<script src='../lib/jquery.min.js'></script>
+<script src='../fullcalendar.min.js'></script>
+<script src='../locale/pt-br.js'></script>
+<script>
+
+	$(document).ready(function() {
+
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'listYear,month'
+			},
+
+			// customize the button names,
+			// otherwise they'd all just say "list"
+			views: {
+				listDay: { buttonText: 'list day' },
+				listWeek: { buttonText: 'list week' }
+			},
+         defaultView: 'listYear',
+			defaultDate: '2018-01-01',
+			editable: true,
+			eventLimit: true, // allow "more" link when too many events
+			events: [
+				{
+					title: 'Ano novo',
+					start: '2018-01-01'
+				},
+				{
+					title: 'Retorno das aulas',
+					start: '2018-01-08'
+				},
+				{
+					title: 'Dia de reis',
+					start: '2018-01-06'
+				},
+				{
+					title: 'Seminário aberto',
+					start: '2018-01-27'
+				},
+				{
+					title: 'Carnaval',
+					start: '2018-02-13'
+				},
+				{
+					title: 'Quarta de cinzas',
+					start: '2018-02-14',
+				},
+				{
+					title: 'Seminário aberto',
+					start: '2018-02-24'
+				},
+				{
+					title: 'Dia da mulher',
+					start: '2018-03-08',
+				},
+				{
+					title: 'Aula aberta',
+					start: '2018-03-08',
+				},
+				{
+					title: 'Seminário mulheres',
+					start: '2018-03-10',
+				},
+				{
+					title: 'Seminário aberto (Dia internacional do WT)',
+					start: '2018-03-17',
+				},
+				{
+					title: 'Seminário graduação',
+					start: '2018-03-24',
+				},
+				{
+					title: 'Sexta santa',
+					start: '2018-03-30',
+				},
+				{
+					title: 'Páscoa',
+					start: '2018-04-01',
+				},
+				{
+					title: 'Dia do índio',
+					start: '2018-04-19',
+				},
+				{
+					title: 'Tiradentes',
+					start: '2018-04-21',
+				},
+				{
+					title: 'Seminário aberto',
+					start: '2018-04-28',
+				},
+				{
+					title: 'Dia do trabalhador',
+					start: '2018-05-01',
+				},
+				{
+					title: 'Abolição da escravatura',
+					start: '2018-05-13',
+				},
+				{
+					title: 'Seminário aberto',
+					start: '2018-05-19',
+				},
+				{
+					title: 'Corpus Christi',
+					start: '2018-05-31',
+				},
+				{
+					title: 'Dia dos namorados',
+					start: '2018-06-12',
+				},
+				{
+					title: 'Seminário aberto (promoção casais)',
+					start: '2018-06-12',
+				},
+				{
+					title: 'Seminário graduação',
+					start: '2018-06-23',
+				},
+				{
+					title: 'Seminário aberto',
+					start: '2018-06-16',
+				},
+				{
+					title: 'Dia do amigo',
+					start: '2018-07-20',
+				},
+				{
+					title: 'Seminário aberto (promoção amigos)',
+					start: '2018-07-21',
+				},
+				{
+					title: 'Seminário aberto (promoção pais)',
+					start: '2018-08-11',
+				},
+				{
+					title: 'Dia dos pais',
+					start: '2018-08-12',
+				},
+				{
+					title: 'Seminário aberto',
+					start: '2018-09-01',
+				},
+				{
+					title: 'Independência do Brasil',
+					start: '2018-09-07',
+				},
+				{
+					title: 'Seminário aberto',
+					start: '2018-09-22',
+				},
+				{
+					title: 'Padroeira do Brasil',
+					start: '2018-10-12',
+				},
+				{
+					title: 'Seminário aberto',
+					start: '2018-10-13',
+				},
+				{
+					title: 'Finados',
+					start: '2018-11-02',
+				},
+				{
+					title: 'Seminário aberto',
+					start: '2018-11-03',
+				},
+				{
+					title: 'Promoção mortos',
+					start: '2018-11-02',
+				},
+				{
+					title: 'Proclamação da República',
+					start: '2018-11-15',
+				},
+				{
+					title: 'Consciência negra',
+					start: '2018-11-20',
+				},
+				{
+					title: 'Seminário aberto',
+					start: '2018-11-24',
+				},
+				{
+					title: 'Seminário aberto',
+					start: '2018-12-08',
+				},
+				{
+					title: 'Início do recesso',
+					start: '2018-12-22',
+				},
+				{
+					title: 'Natal',
+					start: '2018-12-25',
+				}
+/*				{
+					title: 'All Day Event',
+					start: '2017-11-01'
+				},
+				{
+					title: 'Long Event',
+					start: '2017-11-07',
+					end: '2017-11-10'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: '2017-11-09T16:00:00'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: '2017-11-16T16:00:00'
+				},
+				{
+					title: 'Conference',
+					start: '2017-11-11',
+					end: '2017-11-13'
+				},
+				{
+					title: 'Meeting',
+					start: '2017-11-12T10:30:00',
+					end: '2017-11-12T12:30:00'
+				},
+				{
+					title: 'Lunch',
+					start: '2017-11-12T12:00:00'
+				},
+				{
+					title: 'Meeting',
+					start: '2017-11-12T14:30:00'
+				},
+				{
+					title: 'Happy Hour',
+					start: '2017-11-12T17:30:00'
+				},
+				{
+					title: 'Dinner',
+					start: '2017-11-12T20:00:00'
+				},
+				{
+					title: 'Birthday Party',
+					start: '2017-11-13T07:00:00'
+				},
+				{
+					title: 'Click for Google',
+					url: 'http://google.com/',
+					start: '2017-11-28'
+				}*/
+			]
+		});
+		
+	});
+
+</script>
+<style>
+
+	body {
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	}
+
+	#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+</style>
+</head>
+<body>
+
+	<div id='calendar'></div>
+
+</body>
+</html>
